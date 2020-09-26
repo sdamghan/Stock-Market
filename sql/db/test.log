@@ -1,0 +1,28 @@
+/*C6*/SET SCHEMA PUBLIC
+drop table poll_choices
+drop table poll
+create table customer (\u000a\u0009id integer not null,\u000a\u0009name varchar(100) not null,\u000a\u0009family varchar(100) not null,\u000a\u0009credit integer not null,\u000a\u0009primary key (id)\u000a)
+create table customer_stocks (\u000a\u0009customer_id integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009volume integer not null,\u000a\u0009primary key (customer_id),\u000a\u0009constraint customer_id_fk foreign key(customer_id)\u000a\u0009references customer(id)\u000a)
+create table done_requests (\u000a\u0009customer_id integer not null,\u000a\u0009pricePerOne integer not null,\u000a\u0009volume integer not null,\u000a\u0009staticVolume integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009type varchar(100) not null,\u000a\u0009state varchar(100) not null,\u000a\u0009reqmode varchar(100) not null,\u000a\u000a\u0009constraint customer_id_donefk foreign key(customer_id)\u000a\u0009references customer(id)\u000a)
+\u000acreate table running_requests (\u000a\u0009customer_id integer not null,\u000a\u0009pricePerOne integer not null,\u000a\u0009volume integer not null,\u000a\u0009staticVolume integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009type varchar(100) not null,\u000a\u0009state varchar(100) not null,\u000a\u0009reqmode varchar(100) not null,\u000a\u000a\u0009constraint customer_id_runningfk foreign key(customer_id)\u000a\u0009references customer(id)\u000a)
+\u000acreate table deniad_requests (\u000a\u0009customer_id integer not null,\u000a\u0009pricePerOne integer not null,\u000a\u0009volume integer not null,\u000a\u0009staticVolume integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009type varchar(100) not null,\u000a\u0009state varchar(100) not null,\u000a\u0009reqmode varchar(100) not null,\u000a\u000a\u0009constraint customer_id_deniadfk foreign key(customer_id)\u000a\u0009references customer(id)\u000a)
+create table stocks (\u000a\u0009sign varchar(100) not null,\u000a\u0009price integer not null,\u000a\u0009primary key (sign)\u000a)
+create table buyQueue (\u000a\u0009customer_id integer not null,\u000a\u0009pricePerOne integer not null,\u000a\u0009volume integer not null,\u000a\u0009staticVolume integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009type varchar(100) not null,\u000a\u0009state varchar(100) not null,\u000a\u0009reqmode varchar(100) not null,\u000a\u000a\u0009constraint customer_id_buyQueuefk foreign key(customer_id)\u000a\u0009references customer(id)\u000a)
+create table sellQueue (\u000a\u0009customer_id integer not null,\u000a\u0009pricePerOne integer not null,\u000a\u0009volume integer not null,\u000a\u0009staticVolume integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009type varchar(100) not null,\u000a\u0009state varchar(100) not null,\u000a\u0009reqmode varchar(100) not null,\u000a\u000a\u0009constraint customer_id_sellQueuefk foreign key(customer_id)\u000a\u0009references customer(id)\u000a)
+INSERT INTO CUSTOMER VALUES(1,'ali','alavi',400)
+COMMIT
+INSERT INTO CUSTOMER VALUES(6,'mamad','alavi',50000)
+COMMIT
+/*C7*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C9*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C10*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+INSERT INTO CUSTOMER VALUES(5555,'asca','asc',0)
+COMMIT
+/*C6*/drop table buyqueue
+drop table sellqueue
+create table buyQueue (\u000a\u0009stock_id varchar(100) not null,\u000a\u0009pricePerOne integer not null,\u000a\u0009volume integer not null,\u000a\u0009staticVolume integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009type varchar(100) not null,\u000a\u0009state varchar(100) not null,\u000a\u0009reqmode varchar(100) not null,\u000a\u000a\u0009constraint stock_id_buyQueuefk foreign key(stock_id)\u000a\u0009references stocks(sign)\u000a)
+create table sellQueue (\u000a\u0009stock_id varchar(100) not null,\u000a\u0009pricePerOne integer not null,\u000a\u0009volume integer not null,\u000a\u0009staticVolume integer not null,\u000a\u0009sign varchar(100) not null,\u000a\u0009type varchar(100) not null,\u000a\u0009state varchar(100) not null,\u000a\u0009reqmode varchar(100) not null,\u000a\u000a\u0009constraint stock_id_sellQueuefk foreign key(stock_id)\u000a\u0009references stocks(sign)\u000a)
